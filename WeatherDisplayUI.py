@@ -47,11 +47,11 @@ class WeatherDisplayUI:
         title_label = canvas.create_text(tk.size[0] / 2, 30, text=title_string, font=("Purisa", 32), fill='white',
                                          anchor='center')
 
-        temperature_string = "Temperature: " + str(self.weather.get_temperature_fahrenheit())
+        temperature_string = "Temperature: " + '{:.2f}'.format(((self.weather.get_temperature_fahrenheit())))
         temperature_label = canvas.create_text(10, 60, text=temperature_string, font=("Purisa", 16), fill='white',
                                                anchor='nw')
 
-        feels_string = "Feels like: " + str(self.weather.get_feels_fahrenheit())
+        feels_string = "Feels like: " + '{:.2f}'.format((self.weather.get_feels_fahrenheit()))
         temperature_label = canvas.create_text(10, 90, text=feels_string, font=("Purisa", 16), fill='white',
                                                anchor='nw')
 
@@ -60,10 +60,11 @@ class WeatherDisplayUI:
                                            anchor='nw')
         now = datetime.datetime.now()
 
+        canvas.create_text(500, 10, text="Hourly Forecast: ", fill='white', anchor='w')
         count = 0
         for s in self.weather.hourly_forecast:
-            placeholder = str((now.hour + count) % 24) + ": " + s
-            canvas.create_text(500, count * 10, text=placeholder, fill='white')
+            placeholder = str((now.hour + count) % 25) + ": " + s
+            canvas.create_text(500, 30+(count * 10), text=placeholder, fill='white', anchor='w')
             count += 1
             if count > 24:
                 break
